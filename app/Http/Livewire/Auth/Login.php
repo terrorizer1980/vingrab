@@ -9,7 +9,7 @@ use Livewire\Component;
 class Login extends Component
 {
     /** @var string */
-    public $email = '';
+    public $username = '';
 
     /** @var string */
     public $password = '';
@@ -18,21 +18,22 @@ class Login extends Component
     public $remember = false;
 
     protected $rules = [
-        'email' => ['required', 'email'],
+        'username' => ['required', 'username'],
         'password' => ['required'],
     ];
 
     public function authenticate()
     {
-        $this->validate();
+        //$this->validate();
 
-        if (!Auth::attempt(['email' => $this->email, 'password' => $this->password], $this->remember)) {
-            $this->addError('email', trans('auth.failed'));
-
+        if (!Auth::attempt(['username' => $this->username, 'password' => $this->password], $this->remember)) {
+            $this->addError('username', trans('auth.failed'));
             return;
         }
-
+        //laravel session
+        
         return redirect()->intended(route('home'));
+
     }
 
     public function render()
